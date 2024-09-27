@@ -3,6 +3,7 @@ import pandas as pd
 
 
 app = Flask(__name__)
+df = pd.read_csv("dictionary.csv")
 
 
 @app.route("/")
@@ -13,7 +14,7 @@ def home():
 
 @app.route("/api/v1/<word>")
 def cap_word(word):
-    data = {"definition": word.upper(),
+    data = {"definition": df.loc[df["word"] == word]["definition"].squeeze(),
             "word": word}
     return data
 
